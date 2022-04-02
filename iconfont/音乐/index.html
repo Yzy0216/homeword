@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简易音乐</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div id="musicplay">
+        <div id="top">
+            <span>大白代码敲不队</span>
+            <!-- 搜索歌曲 -->
+            <div id="search">
+                <input type="text" placeholder="请输入内容" autocomplete="off" v-model="query" @keyup.enter="searchMusic" />
+            </div>
+        </div>
+        <div id="cont">
+            <div id="left">
+                <div class="player_con" :class="{playing:isPlaying}">
+                    <img src="imgs/bg.png" />
+                    <img :src="musicCover" />
+                </div>
+
+
+
+            </div>
+            <div id="line"></div>
+            <div id="right">
+                <div id="play_list">播放列表</div>
+
+
+                <ul class="song_list">
+                    <li v-for="(item,index) in musicList" :class="{change:index==currentIndex}">
+                        <a href="javascript:;" @click="playMusic(item.id,index)"></a>
+                        <b>{{ item.name }}</b>
+                        <span v-if="item.mvid!=0" @click="playMV(item.mvid)"><i ></i></span>
+                    </li>
+                </ul>
+
+
+
+            </div>
+        </div>
+        <div id="bottom">
+            <audio v-bind:src="musicUrl" controls="" autoplay="" style="width: 100%;"></audio>
+        </div>
+        <div class="video_con" v-show="isShow" style="display: none;">
+            <video :src="mvUrl" controls="controls"></video>
+            <div class="mask" @click="hide"></div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./js/main.js"></script>
+
+
+
+
+</body>
+
+</html>
